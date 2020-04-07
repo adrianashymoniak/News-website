@@ -1,5 +1,6 @@
-from news.models import User
 from django.db import models
+
+from news.models import User
 
 
 class Post(models.Model):
