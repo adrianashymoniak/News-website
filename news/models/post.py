@@ -1,4 +1,5 @@
 from django.db import models
+from froala_editor.fields import FroalaField
 
 from news.models import User
 
@@ -15,7 +16,7 @@ class Post(models.Model):
     )
 
     title = models.CharField(max_length=100)
-    description = models.TextField()
+    description = FroalaField()
     author = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
     status = models.IntegerField(choices=Status, default=IN_MODERATION)
 
