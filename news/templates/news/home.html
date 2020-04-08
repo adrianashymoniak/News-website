@@ -1,1 +1,18 @@
-test
+{% extends 'news/base.html' %}
+{% block content %}
+    <div>
+        {% for post in posts %}
+            {{ post.title|safe }}
+            {{ post.description|safe|truncatewords:7|linebreaks }}
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-10">
+                        <hr class="line"/>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+
+    </div>
+{% endblock %}
