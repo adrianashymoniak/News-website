@@ -36,6 +36,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'froala_editor',
+
     'news',
 ]
 
@@ -99,14 +101,12 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTH_USER_MODEL = 'news.User'
 
-
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = 'smtp.mailgun.org'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'postmaster@sandbox2ca4f749e8644c76857b5b49fd84c9c6.mailgun.org'
-EMAIL_HOST_PASSWORD = ''
+EMAIL_HOST_PASSWORD = '692bcfe1c34efdb8c6f59bac04f7a9f5-aa4b0867-fc4ea8fb'
 EMAIL_USE_TLS = True
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
@@ -125,3 +125,22 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'login'
+
+
+FROALA_EDITOR_OPTIONS = { 'KEY': '9q=fn5@sn9b6xljuh%$d9bn^8%!4v35_8+aely-6wtp6i)h^^*' }
+
+FRAOLA_EDITOR_THIRD_PARTY = ('image_aviary', 'spell_checker')
+FROALA_EDITOR_PLUGINS = (
+    'align', 'char_counter', 'code_beautifier', 'code_view', 'colors',
+    'draggable',
+    'emoticons',
+    'entities', 'file', 'font_family', 'font_size', 'fullscreen',
+    'image_manager',
+    'image', 'inline_style',
+    'line_breaker', 'link', 'html', 'lists', 'paragraph_format',
+    'paragraph_style',
+    'quick_insert', 'quote', 'save', 'table',
+    'url', 'video')
