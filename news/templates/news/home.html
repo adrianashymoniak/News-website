@@ -4,6 +4,13 @@
         {% for post in posts %}
             {{ post.title|safe }}
             {{ post.description|safe|truncatewords:7|linebreaks }}
+            <br>
+            {% if post.author.first_name != None and post.author.last_name != None %}
+                <p>Author</p> {{ post.author.first_name }}
+                {{ post.author.last_name }}
+            {% else %}
+                <p><b>Author: </b></p> {{ post.author }}
+            {% endif %}
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-10">
@@ -12,7 +19,5 @@
                 </div>
             </div>
         {% endfor %}
-
-
     </div>
 {% endblock %}

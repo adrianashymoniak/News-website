@@ -1,0 +1,18 @@
+{% extends 'news/base.html' %}
+{% block content %}
+    {% if post.author == request.user %}
+        {{ post.title }}
+        {{ post.description|safe }}
+        <p><b>Post status:</b> {% include 'news/post_status.html' %}</p>
+        <form method="POST" action="{% url "delete_post" pk=post.pk %}">
+        {% csrf_token %}<input type="submit" value="DELETE">
+    {% else %}
+        {% if post.status == 1 %}
+            {{ post.title }}
+            {{ post.description|safe }}
+        {% else %}
+            <p>This post is in moderation or declined by moderator.</p>
+        {% endif %}
+    {% endif %}
+</form>
+{% endblock %}

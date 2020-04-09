@@ -5,13 +5,7 @@
             {{ post.title|safe }}
 
             {{ post.description|safe }}
-            {% if post.status == 1 %}
-                <div>Your post is accepted</div>
-            {% elif post.status == 0 %}
-                <div>Your post is waiting for moderation</div>
-            {% else %}
-                <div>Your post is declined by moderator</div>
-            {% endif %}
+            {% include 'news/post_status.html' %}
         {% endfor %}
 
 

@@ -1,0 +1,7 @@
+{% if post.status == 1 %}
+    <span>Your post is accepted</span>
+{% elif post.status == 0 %}
+    <span>Your post is waiting for moderation</span>
+{% else %}
+    <span>Your post is declined by moderator</span>
+{% endif %}
