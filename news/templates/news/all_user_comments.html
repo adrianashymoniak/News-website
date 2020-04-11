@@ -1,0 +1,26 @@
+{% extends 'news/base.html' %}
+{% block content %}
+    <div>
+        {% for comment in comments %}
+            <br>
+            <a href="{% url 'comment_detail' pk=comment.pk %}">
+                {{ comment.description|safe }}</a>
+            Comment added to post:
+            <a href="{% url 'post_detail' pk=comment.post.pk %}">
+                {{ comment.post.title|safe }}</a>
+            <br>
+
+            <div>
+                <a href="{% url 'edit_comment' pk=comment.pk %}">Edit
+                    comment</a>
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-10">
+                        <hr class="line"/>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

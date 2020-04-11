@@ -5,7 +5,7 @@ from django.views.generic import ListView, UpdateView, DetailView, DeleteView
 from django.views.generic.base import View
 
 from news.forms.post_form import PostForm
-from news.models import Post, CustomGroup
+from news.models import Post, CustomGroup, Comment
 
 
 class AllUserPostsView(ListView):
@@ -71,12 +71,16 @@ class PostEditView(UpdateView):
                           {'form': form, 'post': post})
 
 
-class PostDetailView(DetailView):
+class PostDetailView(View):
     model = Post
     context_object_name = 'post'
+    template_name = 'news/post_detail.html'
 
-    def get_object(self, queryset=None):
-        return get_object_or_404(Post, pk=self.kwargs.get('pk'))
+    def get(self, request, *args, **kwargs):
+        post = get_object_or_404(Post, pk=self.kwargs.get('pk'))
+        comments = Comment.objects.filter(post=post)
+        return render(request, 'news/post_detail.html', {'post': post,
+                                                         'comments': comments})
 
 
 class DeletePostView(DeleteView):
@@ -84,7 +88,7 @@ class DeletePostView(DeleteView):
     success_url = reverse_lazy('all_my_posts')
 
     def post(self, request, *args, **kwargs):
-        post = get_object_or_404(Post,  pk=self.kwargs.get('pk'))
+        post = get_object_or_404(Post, pk=self.kwargs.get('pk'))
         if post.author != request.user:
             raise Http404
         else:

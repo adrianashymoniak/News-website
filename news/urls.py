@@ -26,5 +26,16 @@ urlpatterns = [
          name='edit_post'),
     path('<int:pk>/delete_post', views.DeletePostView.as_view(),
          name='delete_post'),
+    path('<int:pk>/create_comment', views.CreateCommentView.as_view(),
+         name='create_comment'),
 
+    path('<int:pk>/comment_detail', views.CommentDetailView.as_view(
+        template_name='news/comment_detail.html'), name='comment_detail'),
+    path('<int:pk>/edit_comment',
+         views.EditCommentView.as_view(template_name='news/edit_comment.html'),
+         name='edit_comment'),
+    path('all_my_comments', views.AllUserCommentsView.as_view(
+        template_name='news/all_user_comments.html'), name='all_my_comments'),
+    path('<int:pk>/delete_comment', views.DeleteCommentView.as_view(),
+         name='delete_comment'),
 ]

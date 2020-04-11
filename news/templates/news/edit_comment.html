@@ -1,0 +1,12 @@
+{% extends 'news/base.html' %}
+{% block content %}
+    <form method="post" name="form">
+        {% csrf_token %}
+        <div>
+            {{ form.description|safe }}
+        </div>
+        <button type="submit">Edit</button>
+         <a href="
+{% url 'delete_comment' pk=comment.pk %}">Delete comment</a>
+    </form>
+{% endblock %}

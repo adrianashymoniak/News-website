@@ -1,0 +1,18 @@
+{% extends 'news/base.html' %}
+{% load tz %}
+{% block content %}
+    {{ comment.description|safe }}
+    {% timezone "Europe/Kiev" %}
+        Comment added: {{ comment.created_on|date:'Y-m-d H:i'|linebreaks }}
+    {% endtimezone %}
+    <a href="{% url 'post_detail' comment.post.pk %}"
+    >Go back to comment: {{ comment.post.title }}</a>
+    <br>
+    {% if comment.author == request.user %}
+        <div>
+            <a href="{% url 'edit_comment' pk=comment.pk %}">Edit comment</a>
+        </div>
+    {% else %}
+        Commented by: {{ comment.author }}
+    {% endif %}
+{% endblock %}

@@ -1,15 +1,41 @@
 {% extends 'news/base.html' %}
+{% load tz %}
 {% block content %}
     {% if post.author == request.user %}
         {{ post.title }}
         {{ post.description|safe }}
         <p><b>Post status:</b> {% include 'news/post_status.html' %}</p>
         <form method="POST" action="{% url "delete_post" pk=post.pk %}">
-        {% csrf_token %}<input type="submit" value="DELETE">
+        {% csrf_token %}<input type="submit" value="Delete">
     {% else %}
         {% if post.status == 1 %}
             {{ post.title }}
             {{ post.description|safe }}
+            {{ comments.count }} comments
+            <br>
+            <form method="POST" action="{% url "create_comment" pk=post.pk %}">
+            {% csrf_token %}<input type="submit" value="Add comment">
+
+            <br>
+            {% for comment in comments %}
+                {% if comment.author == request.user %}
+                    <a href="{% url 'comment_detail' pk=comment.pk %}">
+                        {{ comment.description|safe }}</a>
+                {% endif %}
+                Author:  {{ comment.author }}
+                <br>
+                {% timezone "Europe/Kiev" %}
+                    published: {{ comment.created_on }}
+                {% endtimezone %}
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <hr class="line"/>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
         {% else %}
             <p>This post is in moderation or declined by moderator.</p>
         {% endif %}
