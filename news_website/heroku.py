@@ -6,3 +6,7 @@ DATABASES = {
         default='DATABASE_URL'
     )
 }
+
+BROKER_URL = dj_database_url.config(
+        default='REDIS_URL'
+    )
