@@ -1,0 +1,15 @@
+{% extends 'news/base.html' %}
+{% block title %}Page not found{% endblock %}
+{% block authorized_user_content %}
+    <h3 id="page-not-found">No such page. Please go to <a id="home"
+                                                          href="{% url 'home' %}">Home
+        page!</a></h3>
+{% endblock %}
+{% block anonymous_user_content %}
+    <h3 id="page-not-found">You should be logged in to see that page. Please go
+        to <a id="login-page-redirect"
+              href="{% url 'login' %}">Login
+            page</a>
+        or to <a id="sign-up-page-redirect" href="{% url 'signup' %}">Sign up
+            page!</a></h3>
+{% endblock %}

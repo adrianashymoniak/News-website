@@ -16,9 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from news import views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('news.urls')),
     path('froala_editor/', include('froala_editor.urls')),
 
 ]
+
+handler404 = views.error_404
+handler500 = views.error_500
