@@ -1,4 +1,11 @@
-<form method="post">{% csrf_token %}
-    <p>Are you sure you want to delete "{{ object }}"?</p>
-    <input type="submit" value="Confirm" />
-</form>
+{% extends 'news/base.html' %}
+{% block title %}
+    Confirm post deleting
+{% endblock %}
+{% block content %}
+
+    <form method="post">{% csrf_token %}
+        <p>Are you sure you want to delete Post "{{ object }}"?</p>
+        <button class="btn btn-warning" type="submit">Confirm</button>
+    </form>
+{% endblock %}

@@ -5,21 +5,15 @@
         <h2 class="form-title">Registration form</h2>
         <form method='post'>
             {% csrf_token %}
-            <input class="form-control" id="username" type="text"
-                   name="username" maxlength="150"
-                   placeholder="Username"
-                   title="Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only."
-                   autofocus
-                   required>
+            <input class="form-control" id="email" type="email" name="email"
+                   maxlength="254" placeholder="Email"
+                   title="Required. Inform a valid email address." required>
             <input class="form-control" id="first-name" type="text"
                    name="first_name" maxlength="30"
                    placeholder="First Name" title="Optional">
             <input class="form-control" id="last-name" type="text"
                    name="last_name" maxlength="30"
                    placeholder="Last Name" title="Optional">
-            <input class="form-control" id="email" type="email" name="email"
-                   maxlength="254" placeholder="Email"
-                   title="Required. Inform a valid email address." required>
             <input class="form-control" id="password1" type="password"
                    name="password1" placeholder="Password"
                    title="Your password must contain at least 8 characters and can't be entirely numeric."

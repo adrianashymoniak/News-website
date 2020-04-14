@@ -1,4 +1,7 @@
+{% extends 'news/base.html' %}
+{% block content %}
 <form method="post">{% csrf_token %}
     <p>Are you sure you want to delete comment?</p>
-    <input type="submit" value="Confirm"/>
+    <button class="btn btn-warning" type="submit">Confirm</button>
 </form>
+{% endblock %}

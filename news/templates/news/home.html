@@ -1,23 +1,30 @@
 {% extends 'news/base.html' %}
-{% block content %}
+{% block title %}
+    Home page
+{% endblock %}
+{% block general_content %}
     <div>
         {% for post in posts %}
-            {{ post.title|safe }}
-            {{ post.description|safe|truncatewords:7|linebreaks }}
-            <br>
-            {% if post.author.first_name != None and post.author.last_name != None %}
-                <p>Author</p> {{ post.author.first_name }}
-                {{ post.author.last_name }}
-            {% else %}
-                <p><b>Author: </b></p> {{ post.author }}
-            {% endif %}
+            <h4>
+                {{ post.title|upper|safe|linebreaks }}
+            </h4>
+            <p>
+                {{ post.description|safe|truncatechars_html:400 }}
+            </p>
+            <a href="{% url 'post_detail' pk=post.pk %}">Read full post</a>
+            <p>
+                <b>Author: </b> {{ post.author.email }}
+            </p>
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-10">
+                    <div class="col">
                         <hr class="line"/>
                     </div>
                 </div>
             </div>
         {% endfor %}
+        {% include 'news/html_helpers/pagination.html' %}
     </div>
 {% endblock %}
+
+

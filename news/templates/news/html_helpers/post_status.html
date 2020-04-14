@@ -1,7 +1,7 @@
 {% if post.status == 1 %}
-    <span>Your post is accepted</span>
+    <p class="text-success">Your post is accepted</p>
 {% elif post.status == 0 %}
-    <span>Your post is waiting for moderation</span>
+    <p class="text-warning">Your post is waiting for moderation</p>
 {% else %}
-    <span>Your post is declined by moderator</span>
+    <p class="text-danger">Your post is declined by moderator</p>
 {% endif %}

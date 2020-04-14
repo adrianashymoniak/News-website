@@ -2,18 +2,14 @@
 {% block content %}
     <div>
         {% for comment in comments %}
-            <br>
-            <a href="{% url 'comment_detail' pk=comment.pk %}">
-                {{ comment.description|safe }}</a>
-            Comment added to post:
-            <a href="{% url 'post_detail' pk=comment.post.pk %}">
-                {{ comment.post.title|safe }}</a>
-            <br>
+            <p>{{ comment.description|safe|truncatechars_html:50 }}</p>
+            <p><i>Comment added to post:
+                <a href="{% url 'post_detail' pk=comment.post.pk %}">
+                    {{ comment.post.title|safe }}</a></i></p>
+            <a class="btn btn-info" href=
+                    "{% url 'comment_detail' pk=comment.pk %}">View comment
+            </a>
 
-            <div>
-                <a href="{% url 'edit_comment' pk=comment.pk %}">Edit
-                    comment</a>
-            </div>
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-10">
@@ -22,5 +18,6 @@
                 </div>
             </div>
         {% endfor %}
+        {% include 'news/html_helpers/pagination.html' %}
     </div>
 {% endblock %}

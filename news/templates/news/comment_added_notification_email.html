@@ -1,0 +1,17 @@
+{% autoescape off %}
+    Hi {{ post.author.email }},
+
+    <p>
+        Your post <b>{{ post.title }}</b> has been commented by <b>
+        {{ comment.author }}</b>.
+    </p>
+    <p>
+        Please, go to News website and check it.
+    </p>
+    <p>
+        Best regards,
+    </p>
+    <p>
+        News website team.
+    </p>
+{% endautoescape %}

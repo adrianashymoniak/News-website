@@ -1,18 +1,26 @@
 {% extends 'news/base.html' %}
 {% load tz %}
 {% block content %}
-    {{ comment.description|safe }}
+    <p>{{ comment.description|safe }}</p>
     {% timezone "Europe/Kiev" %}
-        Comment added: {{ comment.created_on|date:'Y-m-d H:i'|linebreaks }}
+        <i>Comment added:
+            {{ comment.created_on|date:'Y-m-d H:i'|linebreaks }}</i>
     {% endtimezone %}
-    <a href="{% url 'post_detail' comment.post.pk %}"
-    >Go back to comment: {{ comment.post.title }}</a>
-    <br>
     {% if comment.author == request.user %}
         <div>
-            <a href="{% url 'edit_comment' pk=comment.pk %}">Edit comment</a>
+            <a class="btn btn-secondary"
+               href="{% url 'edit_comment' pk=comment.pk %}">Edit
+                comment</a>
         </div>
     {% else %}
-        Commented by: {{ comment.author }}
+        <i> Commented by: {{ comment.author }}</i>
     {% endif %}
+    <br>
+    <div>
+        <i><a href="{% url 'post_detail' comment.post.pk %}"
+        >Go back to Post: {{ comment.post.title }}</a></i>
+    </div>
+    <div>
+        <a href="{{ request.META.HTTP_REFERER|escape }}">Back</a>
+    </div>
 {% endblock %}
