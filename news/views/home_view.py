@@ -5,7 +5,7 @@ from news.models import Post
 
 class HomeView(ListView):
     template_name = 'news/home.html'
-
+    paginate_by = 3
     model = Post
     context_object_name = 'posts'
 

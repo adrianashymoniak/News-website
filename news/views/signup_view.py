@@ -8,6 +8,8 @@ from django.views import View
 
 from news.forms.sign_up_form import SignUpForm
 from news.views.tokens import account_activation_token
+from news_website.tasks import send_email
+from news_website.settings import SENDER
 
 
 class SignUpView(View):
@@ -33,7 +35,8 @@ class SignUpView(View):
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                 'token': account_activation_token.make_token(user),
             })
-
-            user.email_user(mail_subject, message)
+            sender = SENDER
+            send_email(mail_subject, message, sender,
+                       [user.email])
 
         return redirect('account_activation_sent')

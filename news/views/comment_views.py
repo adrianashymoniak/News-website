@@ -1,14 +1,20 @@
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404, redirect
+from django.template.loader import render_to_string
 from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
 from django.views.generic.base import View
 from django.views.generic import DeleteView, UpdateView, ListView
 
 from news.forms.comment_form import CommentForm
 from news.models import Post, Comment
+from news_website.tasks import send_email
+from news_website.settings import SENDER
 
 
-class CreateCommentView(View):
+class CreateCommentView(LoginRequiredMixin, View):
     template_name = 'news/create_comment.html'
 
     def get_object(self, queryset=None):
@@ -27,6 +33,16 @@ class CreateCommentView(View):
             comment.author = request.user
             comment.post = post
             comment.save()
+            receiver = [post.author.email]
+            sender = SENDER
+            subject = 'Comment was added to your post'
+            message = render_to_string(
+                'news/comment_added_notification_email.html', {
+                    'post': post,
+                    'comment': comment,
+                })
+            send_email(subject, message,
+                       sender, receiver)
             return redirect('post_detail', pk=post.pk)
         else:
             comment = Comment()
@@ -35,7 +51,7 @@ class CreateCommentView(View):
                           {'form': form})
 
 
-class EditCommentView(UpdateView):
+class EditCommentView(LoginRequiredMixin, UpdateView):
     model = Comment
     form_class = CommentForm
     template_name = 'news/edit_comment.html'
@@ -70,16 +86,17 @@ class CommentDetailView(View):
                       {'comment': comment})
 
 
-class AllUserCommentsView(ListView):
+class AllUserCommentsView(LoginRequiredMixin, ListView):
     model = Comment
     context_object_name = 'comments'
+    paginate_by = 3
 
     def get_queryset(self):
         user = self.request.user
         return Comment.objects.filter(author=user).order_by('description')
 
 
-class DeleteCommentView(DeleteView):
+class DeleteCommentView(LoginRequiredMixin, DeleteView):
     model = Comment
     success_url = reverse_lazy('all_my_comments')
 
