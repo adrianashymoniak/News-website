@@ -101,13 +101,6 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTH_USER_MODEL = 'news.User'
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_HOST = 'smtp.mailgun.org'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'postmaster@sandbox2ca4f749e8644c76857b5b49fd84c9c6.mailgun.org'
-EMAIL_HOST_PASSWORD = '692bcfe1c34efdb8c6f59bac04f7a9f5-aa4b0867-fc4ea8fb'
-EMAIL_USE_TLS = True
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
@@ -126,11 +119,17 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "news/static"),
+)
+
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'login'
 
-
-FROALA_EDITOR_OPTIONS = { 'KEY': '9q=fn5@sn9b6xljuh%$d9bn^8%!4v35_8+aely-6wtp6i)h^^*' }
+FROALA_EDITOR_OPTIONS = {
+    'KEY': '9q=fn5@sn9b6xljuh%$d9bn^8%!4v35_8+aely-6wtp6i)h^^*'}
 
 FRAOLA_EDITOR_THIRD_PARTY = ('image_aviary', 'spell_checker')
 FROALA_EDITOR_PLUGINS = (
@@ -144,3 +143,22 @@ FROALA_EDITOR_PLUGINS = (
     'paragraph_style',
     'quick_insert', 'quote', 'save', 'table',
     'url', 'video')
+
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'apikey'
+EMAIL_HOST_PASSWORD = 'PASSWORD'
+EMAIL_USE_TLS = True
+
+REDIS_HOST = 'localhost'
+REDIS_PORT = '6379'
+BROKER_URL = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
+BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}
+CELERY_RESULT_BACKEND = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
+CELERY_EMAIL_TASK_CONFIG = {
+    'name': 'djcelery_email_send',
+    'ignore_result': True,
+}
+
+SENDER = 'EMAIL'
