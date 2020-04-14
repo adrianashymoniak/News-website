@@ -1,2 +1,2 @@
 release: python manage.py migrate
-web: gunicorn news_website.wsgi --log-file -
+web: python manage.py collectstatic --no-input; gunicorn news_website.wsgi --log-file -
