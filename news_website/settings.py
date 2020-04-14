@@ -156,11 +156,12 @@ EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
 
-REDIS_HOST = config('REDIS_HOST')
-REDIS_PORT = config('REDIS_PORT')
+# REDIS_HOST = config('REDIS_HOST')
+# REDIS_PORT = config('REDIS_PORT')
 BROKER_URL = dj_database_url.config('REDIS_URL')
 BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}
-CELERY_RESULT_BACKEND = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
+# CELERY_RESULT_BACKEND = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
+CELERY_RESULT_BACKEND = dj_database_url.config('REDIS_URL')
 CELERY_EMAIL_TASK_CONFIG = {
     'name': 'djcelery_email_send',
     'ignore_result': True,
