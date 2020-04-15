@@ -16,7 +16,8 @@ import dj_database_url
 from decouple import config, Csv
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -60,7 +61,7 @@ ROOT_URLCONF = 'news_website.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -78,12 +79,17 @@ WSGI_APPLICATION = 'news_website.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
-    'default': dj_database_url.config(
-        default='DATABASE_URL'
-    )
-}
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postogresql',
+        'NAME': '',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': '',
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -127,9 +133,9 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "news/static"),
 )
 
-STATIC_ROOT = os.path.join(BASE_DIR, "news/static")
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'login'
@@ -156,12 +162,8 @@ EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
 
-# REDIS_HOST = config('REDIS_HOST')
-# REDIS_PORT = config('REDIS_PORT')
-BROKER_URL = dj_database_url.config(default='REDIS_URL')
 BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}
-# CELERY_RESULT_BACKEND = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
-CELERY_RESULT_BACKEND = dj_database_url.config(default='REDIS_URL')
+
 CELERY_EMAIL_TASK_CONFIG = {
     'name': 'djcelery_email_send',
     'ignore_result': True,

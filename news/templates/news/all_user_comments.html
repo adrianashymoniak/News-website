@@ -18,6 +18,8 @@
                 </div>
             </div>
         {% endfor %}
-        {% include 'news/html_helpers/pagination.html' %}
+        {% if comments.count != 0 %}
+            {% include 'news/html_helpers/pagination.html' %}
+        {% endif %}
     </div>
 {% endblock %}

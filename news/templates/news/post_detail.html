@@ -35,7 +35,9 @@
                 </div>
             </div>
         {% endfor %}
-        {% include 'news/html_helpers/pagination.html' %}
+        {% if page_obj.count != 0 %}
+            {% include 'news/html_helpers/pagination.html' %}
+        {% endif %}
     {% else %}
         <p>This post is in moderation or declined by moderator.</p>
     {% endif %}

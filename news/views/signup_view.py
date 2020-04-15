@@ -9,7 +9,7 @@ from django.views import View
 from news.forms.sign_up_form import SignUpForm
 from news.views.tokens import account_activation_token
 from news_website.tasks import send_email
-from news_website.settings import SENDER
+from news_website.settings.base import SENDER
 
 
 class SignUpView(View):

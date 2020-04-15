@@ -1,17 +1,15 @@
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
-from django.utils.decorators import method_decorator
-from django.views.generic.base import View
 from django.views.generic import DeleteView, UpdateView, ListView
+from django.views.generic.base import View
 
 from news.forms.comment_form import CommentForm
 from news.models import Post, Comment
+from news_website.settings.base import SENDER
 from news_website.tasks import send_email
-from news_website.settings import SENDER
 
 
 class CreateCommentView(LoginRequiredMixin, View):
