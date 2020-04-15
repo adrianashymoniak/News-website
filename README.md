@@ -31,6 +31,9 @@
 * Make sure your virtual environment is activated and requirements are installed    
 * Go to root project folder and run migration: **python manage.py migrate
  --settings=news_website.settings.dev**
+* For creating groups run **python manage.py create_group --settings
+=news_website.settings.dev**
+
 * Run server locally: **python manage.py runserver --settings=news_website
 .settings.dev***
 * Open browser and go to  **http://127.0.0.1:8000/** -> click signup and create your own user

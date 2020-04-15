@@ -31,6 +31,19 @@ class GroupAdminForm(forms.ModelForm):
             self.fields['users'].initial = self.instance.user_set.all()
 
     def save_m2m(self):
+        users = User.objects.all()
+        for user in users:
+            if user.groups.filter(name='moderators'):
+                user.is_staff = True
+                user.save()
+            elif user.groups.filter(name='admins'):
+                user.is_staff = True
+                user.is_superuser = True
+                user.save()
+            else:
+                user.is_staff = False
+                user.is_superuser = False
+                user.save()
         # Add the users to the Group.
         self.instance.user_set.set(self.cleaned_data['users'])
 
