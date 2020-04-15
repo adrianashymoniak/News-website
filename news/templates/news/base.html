@@ -43,6 +43,11 @@
                 <a class="nav-link" href="{% url 'create_post' %}">Create
                     post</a>
             </li>
+            {% if request.user.is_superuser or request.user.is_staff %}
+                <li><a class="nav-link" href="{% url 'admin:index' %}">Admin
+                    page</a>
+                </li>
+            {% endif %}
         </ul>
         <ul class="navbar-nav ml-auto">
 
