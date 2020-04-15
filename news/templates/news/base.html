@@ -73,8 +73,7 @@
     </div>
 </nav>
 <div class="text-indent">
-    {% block general_content %}
-    {% endblock %}
+
     {% if user.is_anonymous %}
         {% block anonymous_user_content %}
         {% endblock %}
@@ -82,6 +81,9 @@
         {% block content %}
         {% endblock %}
     {% endif %}
+
+    {% block general_content %}
+    {% endblock %}
 </div>
 <div class="footer">
     <p>&#9400 {% now "Y" %} News website</p>
