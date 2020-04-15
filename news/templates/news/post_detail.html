@@ -3,6 +3,7 @@
     Post {{ post.title|truncatechars:10 }} detail
 {% endblock %}
 {% load tz %}
+
 {% block general_content %}
     {% if post.status == 1 %}
         <h4 class="post-title-detail"
@@ -13,6 +14,11 @@
             {% if user.is_authenticated %}
                 <a class="btn btn-secondary" href="
 {% url "create_comment" pk=post.pk %}">Add comment</a>
+                {% if post.author == request.user %}
+                    <a class="btn btn-secondary" href="
+{% url "edit_post" pk=post.pk %}">Edit</a>
+
+                {% endif %}
             {% endif %}
         </div>
         {% for comment in page_obj %}
@@ -43,12 +49,5 @@
     {% endif %}
 {% endblock %}
 {% block content %}
-    {% if post.author == request.user %}
-        {% include 'news/html_helpers/post_status.html' %}
-
-        <a class="btn btn-secondary" href="
-{% url "edit_post" pk=post.pk %}">Edit</a>
-
-    {% endif %}
-    </a>
+    {% include 'news/html_helpers/post_status.html' %}
 {% endblock %}
