@@ -39,8 +39,8 @@ class CreateCommentView(LoginRequiredMixin, View):
                     'post': post,
                     'comment': comment,
                 })
-            send_email(subject, message,
-                       sender, receiver)
+            if comment.author != post.author:
+                send_email(subject, message, sender, receiver)
             return redirect('post_detail', pk=post.pk)
         else:
             comment = Comment()

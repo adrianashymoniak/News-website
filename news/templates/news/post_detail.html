@@ -9,6 +9,7 @@
         <h4 class="post-title-detail"
         >{{ post.title|upper|safe|linebreaks }}</h4>
         {{ post.description|safe }}
+        <p><b>Post author: {{ post.author }}</b></p>
         <p>{{ comments.count }} comments</p>
         <div>
             {% if user.is_authenticated %}
@@ -49,5 +50,7 @@
     {% endif %}
 {% endblock %}
 {% block content %}
-    {% include 'news/html_helpers/post_status.html' %}
+    {% if request.user == post.author %}
+        {% include 'news/html_helpers/post_status.html' %}
+    {% endif %}
 {% endblock %}
