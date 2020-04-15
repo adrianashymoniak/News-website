@@ -14,6 +14,9 @@
             <input class="form-control" id="last-name" type="text"
                    name="last_name" maxlength="30"
                    placeholder="Last Name" title="Optional">
+            <input class="form-control" id="date-of-birth" type="date"
+                   name="date-of-birth"
+                   value="{{ user.date_of_birth|date:'Y-m-d' }}">
             <input class="form-control" id="password1" type="password"
                    name="password1" placeholder="Password"
                    title="Your password must contain at least 8 characters and can't be entirely numeric."
@@ -23,8 +26,8 @@
                    placeholder="Password confirmation"
                    title="Enter the same password as before, for verification."
                    required>
-            <button class="btn btn-primary" id="signup-btn" type="submit">Sign
-                Up
+            <button class="btn btn-primary" id="signup-btn" type="submit">
+                Sign Up
             </button>
         </form>
     </div>
