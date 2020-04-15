@@ -20,6 +20,8 @@
         {% endfor %}
         {% if comments.count != 0 %}
             {% include 'news/html_helpers/pagination.html' %}
+            {% else %}
+            <p>You're not commented any post</p>
         {% endif %}
     </div>
 {% endblock %}

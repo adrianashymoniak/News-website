@@ -4,6 +4,7 @@
 {% endblock %}
 {% block general_content %}
     <div>
+
         {% for post in posts %}
             <h4>
                 {{ post.title|upper|safe|linebreaks }}
@@ -25,6 +26,8 @@
         {% endfor %}
         {% if posts.count != 0 %}
             {% include 'news/html_helpers/pagination.html' %}
+        {% else %}
+            <p>No posts yet. Create a new one!</p>
         {% endif %}
     </div>
 {% endblock %}

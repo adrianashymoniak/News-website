@@ -10,7 +10,7 @@
         {{ post.description|safe }}
         <p>{{ comments.count }} comments</p>
         <div>
-            {% if user.is_authenticated and post.author != request.user %}
+            {% if user.is_authenticated %}
                 <a class="btn btn-secondary" href="
 {% url "create_comment" pk=post.pk %}">Add comment</a>
             {% endif %}

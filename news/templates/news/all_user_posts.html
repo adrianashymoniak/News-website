@@ -20,6 +20,8 @@
         {% endfor %}
         {% if posts.count != 0 %}
             {% include 'news/html_helpers/pagination.html' %}
+        {% else %}
+            <p>No posts yet. Create a new one!</p>
         {% endif %}
     </div>
 {% endblock %}
