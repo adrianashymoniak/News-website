@@ -1,10 +1,10 @@
-#####Required:
+##### Required:
 * python3.8
 * django 3.0
-#####Optional:
+##### Optional:
 * virtual env
 
-#####Installation process:
+##### Installation process:
 * Clone repository: **git clone https://github.com/adrianashymoniak/News-website.git**
 * Create virtual env:  run command in terminal **python -m venv myvenv**
 * Activate virtual env (optional): 
